@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -13,7 +13,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
-import { AuthGuard, GuestGuard } from './core/guards'
+import { AuthGuard, GuestGuard } from './core/guards';
+
+import { AddBaseUrlInterceptor } from './core/interceptors';
+
+import { NotifierModule } from 'angular-notifier';
 
 
 @NgModule({
@@ -24,7 +28,17 @@ import { AuthGuard, GuestGuard } from './core/guards'
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: 'middle',
+        },
+        vertical: {
+          position: 'top',
+        }
+      },
+    })
   ],
   declarations: [
     AppComponent,
@@ -33,7 +47,12 @@ import { AuthGuard, GuestGuard } from './core/guards'
   ],
   providers: [
       GuestGuard,
-      AuthGuard
+      AuthGuard,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AddBaseUrlInterceptor,
+        multi: true
+      }
   ],
   bootstrap: [AppComponent]
 })

@@ -15,45 +15,61 @@ import { ComponentsModule } from './components/components.module';
 
 import { AuthGuard, GuestGuard } from './core/guards';
 
-import { AddBaseUrlInterceptor } from './core/interceptors';
+import {AddBaseUrlInterceptor, HandleErrorsInterceptor} from './core/interceptors';
 
 import { NotifierModule } from 'angular-notifier';
+import {JwtModule} from '@auth0/angular-jwt';
+
+export function jwtTokenGetter() {
+    return localStorage.getItem('token');
+}
+
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    NgbModule,
-    RouterModule,
-    AppRoutingModule,
-    NotifierModule.withConfig({
-      position: {
-        horizontal: {
-          position: 'middle',
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        NotifierModule.withConfig({
+            position: {
+                horizontal: {
+                    position: 'middle',
+                },
+                vertical: {
+                    position: 'top',
+                }
+            },
+        }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: jwtTokenGetter
+            }
+        }),
+    ],
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent,
+        AuthLayoutComponent
+    ],
+    providers: [
+        GuestGuard,
+        AuthGuard,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AddBaseUrlInterceptor,
+            multi: true
         },
-        vertical: {
-          position: 'top',
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HandleErrorsInterceptor,
+            multi: true
         }
-      },
-    })
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    AuthLayoutComponent
-  ],
-  providers: [
-      GuestGuard,
-      AuthGuard,
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AddBaseUrlInterceptor,
-        multi: true
-      }
-  ],
-  bootstrap: [AppComponent]
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

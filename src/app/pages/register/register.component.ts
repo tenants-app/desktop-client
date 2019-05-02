@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {NotifierService} from 'angular-notifier';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  constructor() { }
+    private data = {};
 
-  ngOnInit() {
-  }
+    constructor(
+        private httpClient: HttpClient,
+        private notifier: NotifierService,
+        private router: Router) {
+    }
+
+    public register() {
+        this.httpClient
+            .post('auth/register', this.data)
+            .subscribe(
+                data => {
+                    localStorage.setItem('token', data['user']['token']);
+                    this.notifier.notify('success', 'Registered successfully!');
+                    this.router.navigate(['dashboard']);
+                }
+            );
+    }
 
 }

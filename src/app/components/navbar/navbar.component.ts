@@ -3,6 +3,9 @@ import {ROUTES} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {Group} from '../../core/models';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-navbar',
@@ -13,18 +16,24 @@ export class NavbarComponent implements OnInit {
     public focus;
     public listTitles: any[];
     public location: Location;
+    public groups: Group[];
 
     constructor(
         location: Location,
+        private httpClient: HttpClient,
         private element: ElementRef,
         private router: Router,
-        private notifier: NotifierService)
-    {
+        private notifier: NotifierService) {
         this.location = location;
     }
 
     ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
+        this.getGroups().subscribe(data => this.groups = data.groups);
+    }
+
+    getGroups() {
+        return this.httpClient.get<Group[]>('users/groups');
     }
 
     getTitle() {

@@ -13,7 +13,6 @@ export class HandleErrorsInterceptor implements HttpInterceptor {
         return next.handle(req)
             .pipe(
                 catchError((response: HttpErrorResponse) => {
-                    console.log(response);
                     if (response.error.hasOwnProperty('errors')) {
                         for (const error in response.error.errors) {
                             if (response.error.errors.hasOwnProperty(error)) {

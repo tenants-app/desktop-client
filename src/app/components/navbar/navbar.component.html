@@ -27,11 +27,11 @@
           <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">My apartments</h6>
           </div>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item" *ngFor="let group of groups">
+          <a href="javascript:;" routerLinkActive="active" class="dropdown-item" *ngFor="let group of groups" (click)="changeGroup(group._id)">
             <i class="ni ni-building"></i>
             <span>{{ group.name }}</span>
           </a>
-          <a href="javascript:;" class="dropdown-item" (click)="test()">
+          <a href="javascript:;" class="dropdown-item">
             <i class="ni ni-fat-add"></i>
             <span><strong>New apartment</strong></span>
           </a>

@@ -1,11 +1,11 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {ROUTES} from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Group} from '../../core/models';
-import {Observable} from 'rxjs';
+import {GroupService} from '../../core/services';
 
 @Component({
     selector: 'app-navbar',
@@ -16,24 +16,21 @@ export class NavbarComponent implements OnInit {
     public focus;
     public listTitles: any[];
     public location: Location;
-    public groups: Group[];
+    private groups: Group[];
 
     constructor(
         location: Location,
         private httpClient: HttpClient,
         private element: ElementRef,
         private router: Router,
-        private notifier: NotifierService) {
+        private notifier: NotifierService,
+        private groupService: GroupService) {
         this.location = location;
     }
 
     ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
-        this.getGroups().subscribe(data => this.groups = data.groups);
-    }
-
-    getGroups() {
-        return this.httpClient.get<Group[]>('users/groups');
+        this.groupService.getGroups().subscribe(groups => this.groups = groups);
     }
 
     getTitle() {
@@ -53,6 +50,10 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('token');
         this.notifier.notify( 'success', 'Logged out' );
         this.router.navigate([ 'login' ]);
+    }
+
+    changeGroup(groupId) {
+        this.groupService.changeGroup(groupId);
     }
 
 }

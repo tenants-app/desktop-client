@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
     public listTitles: any[];
     public location: Location;
     private groups: Group[];
+    private currentGroup: any;
 
     constructor(
         location: Location,
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         this.groupService.getGroups().subscribe(groups => this.groups = groups);
+        this.groupService.getCurrentGroup().then(group => this.currentGroup = group);
     }
 
     getTitle() {

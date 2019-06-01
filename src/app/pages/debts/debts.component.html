@@ -1,0 +1,274 @@
+<div class="header bg-gradient-success pb-8 pt-4 pt-md-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn" [class.btn-primary]="type === 'my-debts'" (click)="type = 'my-debts'">My debts</button>
+                    <button type="button" class="btn btn-primary" [class.btn-primary]="type === 'loans-given'" (click)="type = 'loans-given'">Loans given</button>
+                </div>
+            </div>
+            <div class="row mt-5" *ngIf="type === 'my-debts'">
+                <div class="col-lg-8 offset-lg-2 col-md-12">
+                    <div class="card shadow">
+                        <div class="card-header bg-transparent">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted ls-1 mb-1">Apartment</h6>
+                                    <h2 class="mb-0">My debts</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Debt holder</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5" *ngIf="type === 'loans-given'">
+                <div class="col-lg-8 offset-lg-2 col-md-12">
+                    <div class="card shadow">
+                        <div class="card-header bg-transparent">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted ls-1 mb-1">Apartment</h6>
+                                    <h2 class="mb-0">Loans given</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Debtor</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski</a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski</a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski</a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski</a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wtorkowe piwo</strong>
+                                        </td>
+                                        <td>
+                                            <a href="">Jan Kowalski</a>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">20 zł</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">Not paid</span>
+                                        </td>
+                                        <td>
+                                            <i>Two days ago.</i>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <button type="button" class="btn btn-success" [routerLink]="['/loans-new']">Add new</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

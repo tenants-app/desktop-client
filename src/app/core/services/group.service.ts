@@ -18,7 +18,7 @@ export class GroupService {
     }
 
     public changeGroup(groupId) {
-        this.getGroup(groupId).then(group => {
+        this.getGroup(groupId).then((group: Group) => {
             this.setCurrentGroup(group._id);
             location.reload();
         });

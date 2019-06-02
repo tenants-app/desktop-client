@@ -31,8 +31,8 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
-        this.groupService.getGroups().subscribe(groups => this.groups = groups);
-        this.groupService.getCurrentGroup().then(group => this.currentGroup = group);
+        this.groupService.getGroups().subscribe((data: any) => this.groups = data.groups);
+        this.groupService.getCurrentGroup().then((data: any) => this.currentGroup = data.group);
     }
 
     getTitle() {

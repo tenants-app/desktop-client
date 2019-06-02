@@ -50,7 +50,7 @@ export const AdminLayoutRoutes: Routes = [
         component: NewLoanComponent
     },
     {
-        path: 'user',
+        path: 'user/:id',
         component: UserComponent
     },
     {

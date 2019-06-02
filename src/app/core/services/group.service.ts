@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Group} from '../models';
+import {User} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
@@ -18,8 +19,8 @@ export class GroupService {
     }
 
     public changeGroup(groupId) {
-        this.getGroup(groupId).then((group: Group) => {
-            this.setCurrentGroup(group._id);
+        this.getGroup(groupId).then((data: any) => {
+            this.setCurrentGroup(data.group._id);
             location.reload();
         });
     }
@@ -36,12 +37,25 @@ export class GroupService {
         const id = localStorage.getItem('currentGroup');
 
         if (id === null) {
-            return this.getGroups().toPromise().then(groups => {
-                return this.getGroup(groups[0]._id);
+            return this.getGroups().toPromise().then((data: any) => {
+                return this.getGroup(data.groups[0]._id);
             });
         }
 
         return this.getGroup(id);
     }
 
+    public getCurrentGroupMembers() {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<User[]>(`groups/${id}/members`).toPromise();
+        });
+    }
+
+    public getCurrentGroupMember(memberId) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<User[]>(`groups/${id}/members/${memberId}`).toPromise();
+        });
+    }
 }

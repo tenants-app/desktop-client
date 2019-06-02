@@ -8,7 +8,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-muted ls-1 mb-1">User</h6>
-                  <h2 class="mb-0">Jan Kowalski</h2>
+                  <h2 class="mb-0">{{ user.username }}</h2>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -21,11 +21,11 @@
               <div class="row">
                 <div class="col-auto">
                   <span class="text-sm">Email</span><br>
-                  <span class="badge badge-success">jan.kowalski@example.com</span>
+                  <span class="badge badge-success">{{ user.email }}</span>
                 </div>
                 <div class="col-auto">
                   <span class="text-sm">Bank account</span><br>
-                  <span class="badge badge-info">61109010140000071219812874</span>
+                  <span class="badge badge-info">{{ user.bank_account_number }}</span>
                 </div>
               </div>
             </div>

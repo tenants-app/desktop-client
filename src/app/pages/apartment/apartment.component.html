@@ -28,48 +28,15 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <tr *ngFor="let member of members">
                     <td class="text-lg">
-                       <strong>Jan Kowalski</strong>
+                       <strong>{{ member.username }}</strong>
                     </td>
                     <td>
-                      <span class="badge badge-info text-lg">61109010140000071219812874</span>
+                      <span class="badge badge-info text-lg">{{ member.bank_account_number }}</span>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/user']">Profile</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-lg">
-                      <strong>Jan Kowalski</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-info text-lg">61109010140000071219812874</span>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/user']">Profile</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-lg">
-                      <strong>Jan Kowalski</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-info text-lg">61109010140000071219812874</span>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/user']">Profile</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-lg">
-                      <strong>Jan Kowalski</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-info text-lg">61109010140000071219812874</span>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/user']">Profile</button>
+                      <button type="button" class="btn btn-primary" [routerLink]="['/user/' + member._id]">Profile</button>
                     </td>
                   </tr>
                   </tbody>

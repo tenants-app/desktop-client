@@ -32,119 +32,29 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <tr *ngFor="let bill of bills">
                     <td>
-                      <strong>Czynsz 06.2019</strong>
+                      <strong>{{ bill.name }}</strong>
                     </td>
                     <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                      <a href="javascript:;" [routerLink]="['/user/' + bill.user._id]">{{ bill.user.username }} <span class="badge badge-info">{{ bill.user.bank_account_number }}</span></a>
                     </td>
                     <td>
-                      <strong class="text-success">1000 zł</strong>
+                      <strong class="text-success">{{ bill.value }} zł</strong>
                     </td>
                     <td>
-                      <strong class="text-danger">250 zł</strong>
+                      <strong class="text-danger">{{ bill.debtors[0].value }} zł</strong>
                     </td>
                     <td>
-                      <span class="badge badge-danger">Not paid</span>
+                      <span class="badge badge-danger" *ngIf="!bill.debtors[0].paid">Not paid</span>
+                      <span class="badge badge-success" *ngIf="bill.debtors[0].paid">Paid</span>
                     </td>
                     <td>
-                      <i>Two days ago.</i>
+                      <i>{{ bill.createdAt | date:'medium' }}</i>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Czynsz 06.2019</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">1000 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">250 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Czynsz 06.2019</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">1000 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">250 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Czynsz 06.2019</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">1000 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">250 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Czynsz 06.2019</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">1000 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">250 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-success">Set as paid</button>
+                      <button type="button" class="btn btn-success" *ngIf="!bill.debtors[0].paid" (click)="changePaidStatus(bill._id)">Set as paid</button>
+                      <button type="button" class="btn btn-outline-danger" *ngIf="bill.debtors[0].paid" (click)="changePaidStatus(bill._id)">Set as not paid</button>
                     </td>
                   </tr>
                   </tbody>

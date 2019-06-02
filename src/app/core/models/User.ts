@@ -2,6 +2,6 @@ export class User {
     _id: string;
     username: string;
     email: string;
-    created_at: string;
+    createdAt: string;
     bank_account_number: string;
 }

@@ -5,6 +5,7 @@ import {UserProfileComponent} from '../../pages/user-profile/user-profile.compon
 import {ApartmentComponent} from '../../pages/apartment/apartment.component';
 import {ShoppingListsComponent} from '../../pages/shopping-lists/shopping-lists.component';
 import {BillsComponent} from '../../pages/bills/bills.component';
+import {BillComponent} from '../../pages/bill/bill.component';
 import {DebtsComponent} from '../../pages/debts/debts.component';
 import {NewShoppingListComponent} from '../../pages/new-shopping-list/new-shopping-list.component';
 import {NewBillComponent} from '../../pages/new-bill/new-bill.component';
@@ -36,6 +37,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'bills',
         component: BillsComponent
+    },
+    {
+        path: 'bills/:id',
+        component: BillComponent
     },
     {
         path: 'bills-new',

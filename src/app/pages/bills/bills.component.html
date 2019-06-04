@@ -53,6 +53,7 @@
                       <i>{{ bill.createdAt | date:'medium' }}</i>
                     </td>
                     <td>
+                      <button type="button" class="btn btn-primary" [routerLink]="['/bills/' + bill._id]">Details</button>
                       <button type="button" class="btn btn-success" *ngIf="!bill.debtors[0].paid" (click)="changePaidStatus(bill._id)">Set as paid</button>
                       <button type="button" class="btn btn-outline-danger" *ngIf="bill.debtors[0].paid" (click)="changePaidStatus(bill._id)">Set as not paid</button>
                     </td>

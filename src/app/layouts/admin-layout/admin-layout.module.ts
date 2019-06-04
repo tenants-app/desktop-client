@@ -14,6 +14,7 @@ import {ApartmentComponent} from '../../pages/apartment/apartment.component';
 import {ShoppingListsComponent} from '../../pages/shopping-lists/shopping-lists.component';
 import {NewShoppingListComponent} from '../../pages/new-shopping-list/new-shopping-list.component';
 import {BillsComponent} from '../../pages/bills/bills.component';
+import {BillComponent} from '../../pages/bill/bill.component';
 import {DebtsComponent} from '../../pages/debts/debts.component';
 import {NewBillComponent} from '../../pages/new-bill/new-bill.component';
 import {NewLoanComponent} from '../../pages/new-loan/new-loan.component';
@@ -40,7 +41,8 @@ import {ShoppingListSummaryComponent} from '../../pages/shopping-list-summary/sh
         DebtsComponent,
         NewLoanComponent,
         UserComponent,
-        ShoppingListSummaryComponent
+        ShoppingListSummaryComponent,
+        BillComponent
     ]
 })
 

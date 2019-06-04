@@ -66,6 +66,13 @@ export class GroupService {
         });
     }
 
+    public getCurrentGroupBill(billId) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<User[]>(`groups/${id}/bills/${billId}`).toPromise();
+        });
+    }
+
     public setCurrentGroupBillAsPaid(billId: String) {
         return this.getCurrentGroup().then((data: any) => {
             const id = data.group._id;

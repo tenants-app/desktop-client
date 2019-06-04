@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Group} from '../models';
+import {Debt, Group} from '../models';
 import {User} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -84,6 +84,34 @@ export class GroupService {
         return this.getCurrentGroup().then((data: any) => {
             const id = data.group._id;
             return this.httpClient.post(`groups/${id}/bills`, bill).toPromise();
+        });
+    }
+
+    public getCurrentGroupDebts() {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<Debt[]>(`groups/${id}/debts`).toPromise();
+        });
+    }
+
+    public getCurrentGroupLoansGiven() {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<Debt[]>(`groups/${id}/debts/given`).toPromise();
+        });
+    }
+
+    public setCurrentGroupDebtAsPaid(debtId: String) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post(`groups/${id}/debts/${debtId}/paid`, {}).toPromise();
+        });
+    }
+
+    public addDebtToCurrentGroup(debt: any) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post(`groups/${id}/debts`, debt).toPromise();
         });
     }
 }

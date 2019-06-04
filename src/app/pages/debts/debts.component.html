@@ -37,104 +37,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr *ngFor="let debt of debts">
                                         <td>
-                                            <strong>Wtorkowe piwo</strong>
+                                            <strong>{{debt.name}}</strong>
                                         </td>
                                         <td>
-                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                                            <a href="javascript:;" [routerLink]="['/user/' + debt.holder._id]">{{debt.holder.username}} <span class="badge badge-info">{{debt.holder.bank_account_number}}</span></a>
                                         </td>
                                         <td>
-                                            <strong class="text-danger">20 zł</strong>
+                                            <strong class="text-danger">{{debt.value}} zł</strong>
                                         </td>
                                         <td>
-                                            <span class="badge badge-danger">Not paid</span>
+                                            <span class="badge badge-danger" *ngIf="!debt.paid">Not paid</span>
+                                            <span class="badge badge-success" *ngIf="debt.paid">Paid</span>
                                         </td>
                                         <td>
-                                            <i>Two days ago.</i>
+                                            <i>{{debt.createdAt | date:'medium'}}</i>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-success">Set as paid</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Set as paid</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Set as paid</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Set as paid</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Set as paid</button>
+                                            <button type="button" class="btn btn-success" *ngIf="!debt.paid" (click)="changePaidStatus(debt._id)">Set as paid</button>
+                                            <button type="button" class="btn btn-outline-danger" *ngIf="debt.paid" (click)="changePaidStatus(debt._id)">Set as not paid</button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -173,89 +95,22 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr *ngFor="let loan of loans">
                                         <td>
-                                            <strong>Wtorkowe piwo</strong>
+                                            <strong>{{loan.name}}</strong>
                                         </td>
                                         <td>
-                                            <a href="">Jan Kowalski</a>
+                                            <a href="javascript:;" [routerLink]="['/user/' + loan.debtor._id]">{{loan.debtor.username}}</a>
                                         </td>
                                         <td>
-                                            <strong class="text-danger">20 zł</strong>
+                                            <strong class="text-danger">{{loan.value}} zł</strong>
                                         </td>
                                         <td>
-                                            <span class="badge badge-danger">Not paid</span>
+                                            <span class="badge badge-danger" *ngIf="!loan.paid">Not paid</span>
+                                            <span class="badge badge-success" *ngIf="loan.paid">Paid</span>
                                         </td>
                                         <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski</a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski</a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski</a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Wtorkowe piwo</strong>
-                                        </td>
-                                        <td>
-                                            <a href="">Jan Kowalski</a>
-                                        </td>
-                                        <td>
-                                            <strong class="text-danger">20 zł</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-danger">Not paid</span>
-                                        </td>
-                                        <td>
-                                            <i>Two days ago.</i>
+                                            <i>{{loan.createdAt | date:'medium'}}</i>
                                         </td>
                                     </tr>
                                     </tbody>

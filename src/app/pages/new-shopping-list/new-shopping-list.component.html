@@ -28,7 +28,7 @@
                                                     <label class="form-control-label" for="input-username">Name</label>
                                                     <input type="text" id="input-username"
                                                            class="form-control form-control-alternative"
-                                                           placeholder="Username" value="name">
+                                                           placeholder="Name" name="shoppingListName" [(ngModel)]="shoppingList.name">
                                                 </div>
                                                 </div>
                                             </div>
@@ -44,45 +44,21 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
+                                                        <tr *ngFor="let product of shoppingList.products; let i = index">
                                                             <td>
-                                                                <strong>Cola Original 2L</strong>
+                                                                <strong>{{ product.name }}</strong>
                                                             </td>
                                                             <td>
-                                                                <strong class="text-success">2 zł</strong>
+                                                                <strong class="text-success">{{ product.value }} zł</strong>
                                                             </td>
                                                             <td>
-                                                                <button type="button" class="btn btn-danger">Remove
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>Cola Original 2L</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong class="text-success">2 zł</strong>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger">Remove
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>Cola Original 2L</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong class="text-success">2 zł</strong>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger">Remove
+                                                                <button type="button" class="btn btn-danger" (click)="shoppingList.products.splice(i, 1); ">Remove
                                                                 </button>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-lg" colspan="3">
-                                                                Sum: <strong class="text-success">2 zł</strong>
+                                                                Sum: <strong class="text-success">{{getSum()}} zł</strong>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -98,7 +74,7 @@
                                                         <label class="form-control-label" for="input-username">Product</label>
                                                         <input type="text"
                                                                class="form-control form-control-alternative"
-                                                               placeholder="Username" value="name">
+                                                               placeholder="Name" name="name" [(ngModel)]="product.name">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -106,11 +82,11 @@
                                                         <label class="form-control-label" for="input-username">Price</label>
                                                         <input type="number"
                                                                class="form-control form-control-alternative"
-                                                               placeholder="price">
+                                                               placeholder="Price" name="price" [(ngModel)]="product.value">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <button type="button" class="btn btn-success">Add product</button>
+                                                    <button type="button" class="btn btn-success" (click)="addProduct()">Add product</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +95,7 @@
                             </form>
                         </div>
                         <div class="card-footer text-right">
-                            <button type="button" class="btn btn-success">Add shopping list</button>
+                            <button type="button" class="btn btn-success" (click)="addShoppingList()">Add shopping list</button>
                         </div>
                     </div>
                 </div>

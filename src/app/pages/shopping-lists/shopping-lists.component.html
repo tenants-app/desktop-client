@@ -32,36 +32,12 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <tr *ngFor="let shoppingList of shoppingLists">
                     <td>
-                      <strong>Zakupy w biedrze</strong>
+                      <strong>{{ shoppingList.name }}</strong>
                     </td>
                     <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">20 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">5 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/shopping-list-summary']">Details</button>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Zakupy w biedrze</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
+                      <a href="">{{ shoppingList.user.username }} <span class="badge badge-info">{{ shoppingList.user.bank_account_number }}</span></a>
                     </td>
                     <td>
                       <strong class="text-success">20 zł</strong>
@@ -78,53 +54,6 @@
                     <td>
                       <button type="button" class="btn btn-primary" [routerLink]="['/shopping-list-summary']">Details</button>
                       <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Zakupy w biedrze</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">20 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">5 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-danger">Not paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/shopping-list-summary']">Details</button>
-                      <button type="button" class="btn btn-success">Set as paid</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Zakupy w biedrze</strong>
-                    </td>
-                    <td>
-                      <a href="">Jan Kowalski <span class="badge badge-info">61109010140000071219812874</span></a>
-                    </td>
-                    <td>
-                      <strong class="text-success">20 zł</strong>
-                    </td>
-                    <td>
-                      <strong class="text-danger">5 zł</strong>
-                    </td>
-                    <td>
-                      <span class="badge badge-success">paid</span>
-                    </td>
-                    <td>
-                      <i>Two days ago.</i>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/shopping-list-summary']">Details</button>
                     </td>
                   </tr>
                   </tbody>

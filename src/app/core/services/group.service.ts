@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Debt, Group} from '../models';
+import {Debt, Group, ShoppingList} from '../models';
 import {User} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -112,6 +112,34 @@ export class GroupService {
         return this.getCurrentGroup().then((data: any) => {
             const id = data.group._id;
             return this.httpClient.post(`groups/${id}/debts`, debt).toPromise();
+        });
+    }
+
+    public getCurrentGroupShoppingLists() {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get<ShoppingList[]>(`groups/${id}/shoppingLists`).toPromise();
+        });
+    }
+
+    public addShoppingListToCurrentGroup(shoppingList: any) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post(`groups/${id}/shoppingLists`, shoppingList).toPromise();
+        });
+    }
+
+    public getCurrentGroupShoppingList(shoppingListId: String) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get(`groups/${id}/shoppingLists/${shoppingListId}`).toPromise();
+        });
+    }
+
+    public setCurrentGroupShoppingListAsPaid(shoppingListId: String) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post(`groups/${id}/shoppingLists/${shoppingListId}/paid`, {}).toPromise();
         });
     }
 }

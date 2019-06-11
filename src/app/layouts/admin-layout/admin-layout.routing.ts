@@ -59,7 +59,7 @@ export const AdminLayoutRoutes: Routes = [
         component: UserComponent
     },
     {
-        path: 'shopping-list-summary',
+        path: 'shopping-lists/:id',
         component: ShoppingListSummaryComponent
     },
 ];

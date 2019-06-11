@@ -128,4 +128,18 @@ export class GroupService {
             return this.httpClient.post(`groups/${id}/shoppingLists`, shoppingList).toPromise();
         });
     }
+
+    public getCurrentGroupShoppingList(shoppingListId: String) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.get(`groups/${id}/shoppingLists/${shoppingListId}`).toPromise();
+        });
+    }
+
+    public setCurrentGroupShoppingListAsPaid(shoppingListId: String) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post(`groups/${id}/shoppingLists/${shoppingListId}/paid`, {}).toPromise();
+        });
+    }
 }

@@ -8,7 +8,7 @@
                             <div class="row align-items-center">
                                 <div class="col">
                                     <h6 class="text-uppercase text-muted ls-1 mb-1">Shopping list</h6>
-                                    <h2 class="mb-0">Zakupy w biedrze <span class="text-sm text-muted">02-06-2019</span>
+                                    <h2 class="mb-0">{{ shoppingList.name }} <span class="text-sm text-muted">{{ shoppingList.createdAt | date:'medium' }}</span>
                                     </h2>
                                 </div>
                                 <div class="col-auto">
@@ -31,33 +31,17 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
+                                            <tr *ngFor="let product of shoppingList.products">
                                                 <td>
-                                                    <strong>Cola Original 2L</strong>
+                                                    <strong>{{ product.name }}</strong>
                                                 </td>
                                                 <td>
-                                                    <strong class="text-success">2 zł</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>Cola Original 2L</strong>
-                                                </td>
-                                                <td>
-                                                    <strong class="text-success">2 zł</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>Cola Original 2L</strong>
-                                                </td>
-                                                <td>
-                                                    <strong class="text-success">2 zł</strong>
+                                                    <strong class="text-success">{{ product.value }} zł</strong>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-lg" colspan="2">
-                                                    Sum: <strong class="text-success">2 zł</strong>
+                                                    Sum: <strong class="text-success">{{ getSum() }} zł</strong>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -77,51 +61,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
+                                            <tr *ngFor="let debtor of shoppingList.debtors">
                                                 <td>
-                                                    <a href=""><strong>Jan Kowalski</strong></a>
-                                                </td>
-                                                <td>
-                                                    <strong class="text-danger">2 zł</strong>
+                                                    <a href=""><strong>{{ debtor.user.username }}</strong></a>
                                                 </td>
                                                 <td>
-                                                    <span class="badge badge-danger">Not paid</span>
+                                                    <strong class="text-danger">{{ debtor.value }} zł</strong>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success">Set as paid</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href=""><strong>Jan Kowalski</strong></a>
+                                                    <span class="badge badge-danger" *ngIf="!debtor.paid">Not paid</span>
+                                                    <span class="badge badge-success" *ngIf="debtor.paid">Paid</span>
                                                 </td>
                                                 <td>
-                                                    <strong class="text-danger">2 zł</strong>
-                                                </td>
-                                                <td colspan="2">
-                                                    <span class="badge badge-danger">Not paid</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href=""><strong>Jan Kowalski</strong></a>
-                                                </td>
-                                                <td>
-                                                    <strong class="text-danger">2 zł</strong>
-                                                </td>
-                                                <td colspan="2">
-                                                    <span class="badge badge-danger">Not paid</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href=""><strong>Jan Kowalski</strong></a>
-                                                </td>
-                                                <td>
-                                                    <strong class="text-danger">2 zł</strong>
-                                                </td>
-                                                <td colspan="2">
-                                                    <span class="badge badge-danger">Not paid</span>
+
+                                                    <button type="button" class="btn btn-success" *ngIf="!debtor.paid && isLoggedUser(debtor.user._id)" (click)="changePaidStatus(shoppingList._id)">Set as paid</button>
+                                                    <button type="button" class="btn btn-outline-danger" *ngIf="debtor.paid && isLoggedUser(debtor.user._id)" (click)="changePaidStatus(shoppingList._id)">Set as not paid</button>
+
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -131,7 +86,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span>Created by <a href=""><strong>Jan Kowalski</strong></a></span><span class="badge ml-1 badge-info">61109010140000071219812874</span>
+                            <span>Created by <a href=""><strong>{{ shoppingList.user.username }}</strong></a></span><span class="badge ml-1 badge-info">{{ shoppingList.user.bank_account_number }}</span>
                         </div>
                     </div>
                 </div>

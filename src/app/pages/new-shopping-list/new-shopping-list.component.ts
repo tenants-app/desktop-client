@@ -49,7 +49,7 @@ export class NewShoppingListComponent implements OnInit {
     addShoppingList() {
         this.groupService.addShoppingListToCurrentGroup(this.shoppingList).then(data => {
             this.notifier.notify('success', 'Added new shopping list');
-            this.router.navigate(['shoppingLists']);
+            this.router.navigate(['shopping-lists']);
         });
     }
 }

@@ -6,7 +6,7 @@ function createWindow () {
   window = new BrowserWindow({ width: 1200, height: 800 })
   window.setMenu(null);
   window.loadFile('dist/index.html')
- 
+  window.webContents.openDevTools()
   window.on('closed', () => {
     window = null
   })

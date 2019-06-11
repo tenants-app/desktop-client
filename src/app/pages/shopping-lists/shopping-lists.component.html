@@ -40,20 +40,22 @@
                       <a href="">{{ shoppingList.user.username }} <span class="badge badge-info">{{ shoppingList.user.bank_account_number }}</span></a>
                     </td>
                     <td>
-                      <strong class="text-success">20 zł</strong>
+                      <strong class="text-success">{{ getValue(shoppingList) }} zł</strong>
                     </td>
                     <td>
-                      <strong class="text-danger">5 zł</strong>
+                      <strong class="text-danger">{{ getPersonalValue(shoppingList) }} zł</strong>
                     </td>
                     <td>
-                      <span class="badge badge-danger">Not paid</span>
+                      <span class="badge badge-danger" *ngIf="!isPaid(shoppingList)">Not paid</span>
+                      <span class="badge badge-success" *ngIf="isPaid(shoppingList)">Paid</span>
                     </td>
                     <td>
-                      <i>Two days ago.</i>
+                      <i>{{ shoppingList.createdAt | date:'medium' }}</i>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-primary" [routerLink]="['/shopping-list-summary']">Details</button>
-                      <button type="button" class="btn btn-success">Set as paid</button>
+                      <button type="button" class="btn btn-primary" [routerLink]="['/shopping-lists/' + shoppingList._id]">Details</button>
+                      <button type="button" class="btn btn-success" *ngIf="!isPaid(shoppingList)" (click)="changePaidStatus(shoppingList._id)">Set as paid</button>
+                      <button type="button" class="btn btn-outline-danger" *ngIf="isPaid(shoppingList)" (click)="changePaidStatus(shoppingList._id)">Set as not paid</button>
                     </td>
                   </tr>
                   </tbody>
@@ -66,7 +68,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Bill} from '../../core/models';
-import {GroupService} from '../../core/services';
+import {BillsService} from '../../core/services';
 import {ActivatedRoute} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
@@ -11,9 +11,10 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class BillComponent implements OnInit {
 
-    public bill: Bill;
+    private bill: Bill;
+    private loaded = false;
 
-    constructor(private groupService: GroupService, private route: ActivatedRoute, private jwtHelper: JwtHelperService) {
+    constructor(private billsService: BillsService, private route: ActivatedRoute, private jwtHelper: JwtHelperService) {
     }
 
     ngOnInit() {
@@ -21,7 +22,8 @@ export class BillComponent implements OnInit {
     }
 
     public changePaidStatus(billId) {
-        this.groupService.setCurrentGroupBillAsPaid(billId).then((data: any) => {
+        this.loaded = false;
+        this.billsService.setBillAsPaid(billId).then((data: any) => {
             this.loadBill();
         });
     }
@@ -33,8 +35,9 @@ export class BillComponent implements OnInit {
 
     private loadBill() {
         this.route.params.subscribe(params => {
-            this.groupService.getCurrentGroupBill(params['id']).then((data: any) => {
+            this.billsService.getBill(params['id']).then((data: any) => {
                 this.bill = data.bill;
+                this.loaded = true;
             });
         });
     }

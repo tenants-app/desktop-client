@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../core/services';
 import {ActivatedRoute} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ShoppingList} from '../../core/models';
+import {ShoppingListsService} from '../../core/services';
 
 @Component({
     selector: 'app-shopping-list-summary',
@@ -12,8 +12,9 @@ import {ShoppingList} from '../../core/models';
 export class ShoppingListSummaryComponent implements OnInit {
 
     private shoppingList: ShoppingList;
+    private loaded = false;
 
-    constructor(private groupService: GroupService, private route: ActivatedRoute, private jwtHelper: JwtHelperService) {
+    constructor(private shoppingListsService: ShoppingListsService, private route: ActivatedRoute, private jwtHelper: JwtHelperService) {
     }
 
     ngOnInit() {
@@ -22,14 +23,16 @@ export class ShoppingListSummaryComponent implements OnInit {
 
     private loadShoppingList() {
         this.route.params.subscribe(params => {
-            this.groupService.getCurrentGroupShoppingList(params['id']).then((data: any) => {
+            this.shoppingListsService.getShoppingList(params['id']).then((data: any) => {
                 this.shoppingList = data.shoppingList;
+                 this.loaded = true;
             });
         });
     }
 
     private changePaidStatus(shoppingListId: string) {
-        this.groupService.setCurrentGroupShoppingListAsPaid(shoppingListId).then((data: any) => {
+        this.loaded = false;
+        this.shoppingListsService.setShoppingListAsPaid(shoppingListId).then((data: any) => {
             this.loadShoppingList();
         });
     }

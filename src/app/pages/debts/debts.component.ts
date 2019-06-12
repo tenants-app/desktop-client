@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../core/services';
+import {DebtsService} from '../../core/services';
 import {Debt} from '../../core/models';
 
 @Component({
@@ -9,11 +9,12 @@ import {Debt} from '../../core/models';
 })
 export class DebtsComponent implements OnInit {
 
-    public debts: Debt[];
-    public loans: Debt[];
-    public type: String = 'my-debts';
+    private debts: Debt[];
+    private loans: Debt[];
+    private type: String = 'my-debts';
+    private loaded = false;
 
-    constructor(private groupService: GroupService) {
+    constructor(private debtsService: DebtsService) {
     }
 
     ngOnInit() {
@@ -21,18 +22,20 @@ export class DebtsComponent implements OnInit {
     }
 
     public changePaidStatus(debtId) {
-        this.groupService.setCurrentGroupDebtAsPaid(debtId).then((data: any) => {
+        this.loaded = false;
+        this.debtsService.setDebtAsPaid(debtId).then((data: any) => {
             this.loadData();
         });
     }
 
     private loadData() {
-        this.groupService.getCurrentGroupDebts().then((data: any) => {
+        this.debtsService.getDebts().then((data: any) => {
             this.debts = data.debts;
         });
 
-        this.groupService.getCurrentGroupLoansGiven().then((data: any) => {
+        this.debtsService.getLoansGiven().then((data: any) => {
             this.loans = data.debts;
+            this.loaded = true;
         });
     }
 

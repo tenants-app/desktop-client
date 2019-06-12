@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ShoppingList, Product} from '../../core/models';
-import {GroupService} from '../../core/services';
+import {ShoppingListsService} from '../../core/services';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
 
@@ -14,7 +14,7 @@ export class NewShoppingListComponent implements OnInit {
     public shoppingList: ShoppingList;
     public product: any = {};
 
-    constructor(private groupService: GroupService, private notifier: NotifierService, private router: Router) {
+    constructor(private shoppingListsService: ShoppingListsService, private notifier: NotifierService, private router: Router) {
     }
 
     ngOnInit() {
@@ -47,7 +47,7 @@ export class NewShoppingListComponent implements OnInit {
     }
 
     addShoppingList() {
-        this.groupService.addShoppingListToCurrentGroup(this.shoppingList).then(data => {
+        this.shoppingListsService.addShoppingList(this.shoppingList).then(data => {
             this.notifier.notify('success', 'Added new shopping list');
             this.router.navigate(['shopping-lists']);
         });

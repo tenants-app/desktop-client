@@ -7,8 +7,9 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Debts</h5>
-                  <span class="h1 font-weight-bold mb-0 text-danger">23 zł</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Unpaid debts</h5>
+                  <app-spinner *ngIf="!this.loadedDebts"></app-spinner>
+                  <span class="h1 font-weight-bold mb-0 text-danger" *ngIf="this.loadedDebts">{{ sumDebts() }} zł</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -17,7 +18,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-nowrap"><a href="">See details</a></span>
+                <span class="text-nowrap"><a href="javascript:;" [routerLink]="['/debts']">See details</a></span>
               </p>
             </div>
           </div>
@@ -28,7 +29,8 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Tenants in the apartment</h5>
-                  <span class="h1 font-weight-bold mb-0">7</span>
+                  <app-spinner *ngIf="!this.loadedMembers"></app-spinner>
+                  <span class="h1 font-weight-bold mb-0" *ngIf="this.loadedMembers">{{ members.length }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -37,7 +39,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-nowrap"><a href="">See all</a></span>
+                <span class="text-nowrap"><a href="javascript:;" [routerLink]="['/apartment']">See all</a></span>
               </p>
             </div>
           </div>
@@ -47,8 +49,9 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Bills this month</h5>
-                  <span class="h1 font-weight-bold mb-0 text-danger">3500 zł</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Unpaid bills</h5>
+                  <app-spinner *ngIf="!this.loadedBills"></app-spinner>
+                  <span class="h1 font-weight-bold mb-0 text-danger" *ngIf="this.loadedBills">{{ sumBills() }} zł</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -57,7 +60,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-nowrap"><a href="">See details</a></span>
+                <span class="text-nowrap"><a href="javascript:;" [routerLink]="['/bills']">See details</a></span>
               </p>
             </div>
           </div>
@@ -68,8 +71,8 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Shopping lists</h5>
-                  <span class="h1 font-weight-bold mb-0">5</span>
-                  <span class="h1 font-weight-bold mb-0">5</span>
+                  <app-spinner *ngIf="!this.loadedShoppingLists"></app-spinner>
+                  <span class="h1 font-weight-bold mb-0" *ngIf="this.loadedShoppingLists">{{ shoppingLists.length }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -78,7 +81,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-nowrap"><a href="">See all</a></span>
+                <span class="text-nowrap"><a href="javascript:;" [routerLink]="['/shopping-lists']">See all</a></span>
               </p>
             </div>
           </div>
@@ -105,7 +108,8 @@
           </div>
         </div>
         <div class="card-body p-0">
-          <div class="table-responsive">
+          <app-spinner *ngIf="!this.loadedDebts"></app-spinner>
+          <div class="table-responsive" *ngIf="this.loadedDebts">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
               <tr>
@@ -114,40 +118,14 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let debt of debts.slice(0, 10)">
                 <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  You owe <strong class="text-danger">20 zł</strong> to <a href="">Jan Kowalski</a> for <a href=""><strong>Wtorkowe piwo</strong></a><br>
+                  <i class="text-xs">{{ debt.createdAt | date:'medium' }}</i><br>
+                  You owe <strong class="text-danger">{{ debt.value }} zł</strong> to <a href="javascript:;" [routerLink]="['/user/' + debt.holder._id]">{{ debt.holder.username}}</a> for <a href="javascript:;" [routerLink]="['/debts/' + debt._id]"><strong>{{ debt.name }}</strong></a><br>
                 </td>
                 <td>
-                  <span class="badge badge-danger">Not paid</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> owes you <strong class="text-success">20 zł</strong> for <a href=""><strong>Wtorkowe piwo</strong></a><br>
-                </td>
-                <td>
-                  <span class="badge badge-success">Paid</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  You owe <strong class="text-danger">20 zł</strong> to <a href="">Jan Kowalski</a> for <a href=""><strong>Wtorkowe piwo</strong></a><br>
-                </td>
-                <td>
-                  <span class="badge badge-danger">Not paid</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> owes you <strong class="text-success">20 zł</strong> for <a href=""><strong>Wtorkowe piwo</strong></a><br>
-                </td>
-                <td>
-                  <span class="badge badge-success">Paid</span>
+                  <span class="badge badge-danger" *ngIf="!debt.paid">Not paid</span>
+                  <span class="badge badge-success" *ngIf="debt.paid">Paid</span>
                 </td>
               </tr>
               </tbody>
@@ -155,7 +133,7 @@
           </div>
         </div>
         <div class="card-footer text-sm">
-          <a href="">See all</a>
+          <a href="javascript:;" [routerLink]="['/debts']">See all</a>
         </div>
       </div>
     </div>
@@ -175,57 +153,30 @@
           </div>
         </div>
         <div class="card-body p-0">
-          <div class="table-responsive">
+          <app-spinner *ngIf="!this.loadedBills"></app-spinner>
+          <div class="table-responsive" *ngIf="this.loadedBills">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
               <tr>
                 <th scope="col">Action</th>
                 <th scope="col">Value</th>
+                <th scope="col">Status</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let bill of bills.slice(0, 10)">
                 <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> added new bill: <a href=""><strong>Rachunek za prąd 06.19</strong></a>
+                  <i class="text-xs">{{ bill.createdAt | date:'medium' }}</i><br>
+                  <a href="javascript:;" [routerLink]="['/user/' + bill.user._id]">{{ bill.user.username }}</a> added new bill: <a href="javascript:;" [routerLink]="['/bills/' + bill._id]"><strong>{{ bill.name }}</strong></a>
                 </td>
                 <td>
                   <span class="badge badge-dot mr-4">
-                     <span class="badge badge-danger">2137 zł</span>
+                     <span class="badge badge-danger">{{ bill.value }} zł</span>
                   </span>
                 </td>
-              </tr>
-              <tr>
                 <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> added new bill: <a href=""><strong>Rachunek za prąd 06.19</strong></a>
-                </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                     <span class="badge badge-danger">2137 zł</span>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> added new bill: <a href=""><strong>Rachunek za prąd 06.19</strong></a>
-                </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                     <span class="badge badge-danger">2137 zł</span>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> added new bill: <a href=""><strong>Rachunek za prąd 06.19</strong></a>
-                </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                     <span class="badge badge-danger">2137 zł</span>
-                  </span>
+                  <span class="badge badge-danger" *ngIf="!bill.debtors[0].paid">Not paid</span>
+                  <span class="badge badge-success" *ngIf="bill.debtors[0].paid">Paid</span>
                 </td>
               </tr>
               </tbody>
@@ -233,7 +184,7 @@
           </div>
         </div>
         <div class="card-footer text-sm">
-          <a href="">See all</a>
+          <a href="javascript:;" [routerLink]="['/bills']">See all</a>
         </div>
       </div>
     </div>
@@ -253,7 +204,8 @@
           </div>
         </div>
         <div class="card-body p-0">
-          <div class="table-responsive">
+          <app-spinner *ngIf="!this.loadedShoppingLists"></app-spinner>
+          <div class="table-responsive" *ngIf="this.loadedShoppingLists">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
               <tr>
@@ -262,31 +214,14 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let shoppingList of shoppingLists.slice(0, 10)">
                 <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> created new list: <a href=""><strong>Zakupy w biedrze</strong></a>
+                  <i class="text-xs">{{ shoppingList.createdAt | date:'medium' }}</i><br>
+                  <a href="javascript:;" [routerLink]="['/user/' + shoppingList.user._id]">{{ shoppingList.user.username }}</a> created new list: <a href=""><strong>{{ shoppingList.name }}</strong></a>
                 </td>
                 <td>
-                  <span class="badge badge-danger">Not paid</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> created new list: <a href=""><strong>Zakupy w biedrze</strong></a>
-                </td>
-                <td>
-                  <span class="badge badge-danger">Not paid</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="text-xs">Two days ago</i><br>
-                  <a href="">Jan Kowalski</a> created new list: <a href=""><strong>Zakupy w biedrze</strong></a>
-                </td>
-                <td>
-                  <span class="badge badge-success">Paid</span>
+                  <span class="badge badge-danger" *ngIf="!shoppingList.debtors[0].paid">Not paid</span>
+                  <span class="badge badge-success" *ngIf="shoppingList.debtors[0].paid">Paid</span>
                 </td>
               </tr>
               </tbody>
@@ -294,7 +229,7 @@
           </div>
         </div>
         <div class="card-footer text-sm">
-          <a href="">See all</a>
+          <a href="javascript:;" [routerLink]="['/shopping-lists']">See all</a>
         </div>
       </div>
     </div>

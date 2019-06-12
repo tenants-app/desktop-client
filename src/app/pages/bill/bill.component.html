@@ -20,7 +20,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="table-responsive">
+                  <app-spinner *ngIf="!this.loaded"></app-spinner>
+                  <div class="table-responsive" *ngIf="this.loaded">
                     <h3>Debtors</h3>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">

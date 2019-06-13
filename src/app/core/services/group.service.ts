@@ -46,4 +46,22 @@ export class GroupService {
 
         return this.getGroup(id);
     }
+
+    public generateMemberLink(email) {
+        return this.getCurrentGroup().then((data: any) => {
+            const id = data.group._id;
+            return this.httpClient.post('groups/generate_member_link', {
+                email: email,
+                group_id: id
+            }).toPromise();
+        });
+    }
+
+    public newGroup(name) {
+        return this.httpClient.post(`groups/new`, {
+            name: name
+        }).toPromise().then(data => {
+            window.location.reload();
+        });
+    }
 }

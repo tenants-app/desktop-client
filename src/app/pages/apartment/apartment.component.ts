@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MembersService} from '../../core/services';
+import {MembersService, GroupService} from '../../core/services';
 import {User} from '../../core/models';
 
 @Component({
@@ -12,8 +12,11 @@ export class ApartmentComponent implements OnInit {
 
     private members: User[];
     private loaded = false;
+    private email: String;
+    private link: String;
+    private loading = false;
 
-    constructor(private membersService: MembersService) {
+    constructor(private membersService: MembersService, private groupService: GroupService) {
     }
 
     ngOnInit() {
@@ -23,4 +26,11 @@ export class ApartmentComponent implements OnInit {
         });
     }
 
+    generateMemberLink() {
+        this.loading = true;
+        this.groupService.generateMemberLink(this.email).then((data: any) => {
+            this.link = data.link;
+            this.loading = false;
+        });
+    }
 }

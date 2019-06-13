@@ -16,10 +16,6 @@
           <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
-            <i class="ni ni-single-02"></i>
-            <span>My profile</span>
-          </a>
           <div class="dropdown-divider"></div>
           <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">My apartments</h6>
@@ -28,7 +24,7 @@
             <i class="ni ni-building"></i>
             <span>{{ group.name }}</span>
           </a>
-          <a href="javascript:;" class="dropdown-item">
+          <a href="javascript:;" class="dropdown-item" [routerLink]="['/apartment-new']">
             <i class="ni ni-fat-add"></i>
             <span><strong>New apartment</strong></span>
           </a>

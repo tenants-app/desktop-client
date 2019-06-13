@@ -3,6 +3,7 @@ import {Debt, Group, ShoppingList} from '../models';
 import {User} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+//import { remote } from 'electron';
 
 @Injectable({
     providedIn: 'root'
@@ -10,8 +11,8 @@ import {Router} from '@angular/router';
 export class GroupService {
 
     constructor(
-        private httpClient: HttpClient,
-        private router: Router
+        public httpClient: HttpClient,
+        public router: Router
     ) {}
 
     public getGroups() {
@@ -21,7 +22,8 @@ export class GroupService {
     public changeGroup(groupId) {
         this.getGroup(groupId).then((data: any) => {
             this.setCurrentGroup(data.group._id);
-            location.reload();
+            window.location.reload();
+          //  remote.BrowserWindow.getAllWindows()[0].reload();
         });
     }
 
@@ -45,101 +47,21 @@ export class GroupService {
         return this.getGroup(id);
     }
 
-    public getCurrentGroupMembers() {
+    public generateMemberLink(email) {
         return this.getCurrentGroup().then((data: any) => {
             const id = data.group._id;
-            return this.httpClient.get<User[]>(`groups/${id}/members`).toPromise();
+            return this.httpClient.post('groups/generate_member_link', {
+                email: email,
+                group_id: id
+            }).toPromise();
         });
     }
 
-    public getCurrentGroupMember(memberId) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<User[]>(`groups/${id}/members/${memberId}`).toPromise();
-        });
-    }
-
-    public getCurrentGroupBills() {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<User[]>(`groups/${id}/bills`).toPromise();
-        });
-    }
-
-    public getCurrentGroupBill(billId) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<User[]>(`groups/${id}/bills/${billId}`).toPromise();
-        });
-    }
-
-    public setCurrentGroupBillAsPaid(billId: String) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/bills/${billId}/paid`, {}).toPromise();
-        });
-    }
-
-    public addBillToCurrentGroup(bill: any) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/bills`, bill).toPromise();
-        });
-    }
-
-    public getCurrentGroupDebts() {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<Debt[]>(`groups/${id}/debts`).toPromise();
-        });
-    }
-
-    public getCurrentGroupLoansGiven() {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<Debt[]>(`groups/${id}/debts/given`).toPromise();
-        });
-    }
-
-    public setCurrentGroupDebtAsPaid(debtId: String) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/debts/${debtId}/paid`, {}).toPromise();
-        });
-    }
-
-    public addDebtToCurrentGroup(debt: any) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/debts`, debt).toPromise();
-        });
-    }
-
-    public getCurrentGroupShoppingLists() {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get<ShoppingList[]>(`groups/${id}/shoppingLists`).toPromise();
-        });
-    }
-
-    public addShoppingListToCurrentGroup(shoppingList: any) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/shoppingLists`, shoppingList).toPromise();
-        });
-    }
-
-    public getCurrentGroupShoppingList(shoppingListId: String) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.get(`groups/${id}/shoppingLists/${shoppingListId}`).toPromise();
-        });
-    }
-
-    public setCurrentGroupShoppingListAsPaid(shoppingListId: String) {
-        return this.getCurrentGroup().then((data: any) => {
-            const id = data.group._id;
-            return this.httpClient.post(`groups/${id}/shoppingLists/${shoppingListId}/paid`, {}).toPromise();
+    public newGroup(name) {
+        return this.httpClient.post(`groups/new`, {
+            name: name
+        }).toPromise().then(data => {
+            window.location.reload();
         });
     }
 }

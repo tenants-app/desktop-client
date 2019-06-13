@@ -4,6 +4,8 @@
       <div class="row">
         <div class="col-lg-6 offset-lg-3 col-md-12">
           <div class="card shadow">
+            <app-spinner *ngIf="!this.loaded"></app-spinner>
+            <div *ngIf="this.loaded">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
@@ -28,6 +30,7 @@
                   <span class="badge badge-info">{{ user.bank_account_number }}</span>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>

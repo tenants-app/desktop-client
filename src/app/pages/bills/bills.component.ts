@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../core/services';
+import {BillsService} from '../../core/services';
 import {Bill} from '../../core/models';
 
 @Component({
@@ -9,9 +9,10 @@ import {Bill} from '../../core/models';
 })
 export class BillsComponent implements OnInit {
 
-    public bills: Bill[];
+    private bills: Bill[];
+    private loaded = false;
 
-    constructor(private groupService: GroupService) {
+    constructor(private billsService: BillsService) {
     }
 
     ngOnInit() {
@@ -19,15 +20,16 @@ export class BillsComponent implements OnInit {
     }
 
     public changePaidStatus(billId) {
-        this.groupService.setCurrentGroupBillAsPaid(billId).then((data: any) => {
-            console.log(data);
+        this.billsService.setBillAsPaid(billId).then((data: any) => {
+            this.loaded = false;
             this.loadBills();
         });
     }
 
     private loadBills() {
-        this.groupService.getCurrentGroupBills().then((data: any) => {
+        this.billsService.getBills().then((data: any) => {
             this.bills = data.bills;
+            this.loaded = true;
         });
     }
 }

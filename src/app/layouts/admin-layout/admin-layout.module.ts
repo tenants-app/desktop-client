@@ -20,6 +20,8 @@ import {NewBillComponent} from '../../pages/new-bill/new-bill.component';
 import {NewLoanComponent} from '../../pages/new-loan/new-loan.component';
 import {UserComponent} from '../../pages/user/user.component';
 import {ShoppingListSummaryComponent} from '../../pages/shopping-list-summary/shopping-list-summary.component';
+import {NewApartmentComponent} from '../../pages/new-apartment/new-apartment.component';
+import {SpinnerComponent} from '../../spinner/spinner.component';
 
 @NgModule({
     imports: [
@@ -42,7 +44,9 @@ import {ShoppingListSummaryComponent} from '../../pages/shopping-list-summary/sh
         NewLoanComponent,
         UserComponent,
         ShoppingListSummaryComponent,
-        BillComponent
+        BillComponent,
+        NewApartmentComponent,
+        SpinnerComponent
     ]
 })
 

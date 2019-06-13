@@ -18,7 +18,8 @@
               </div>
             </div>
             <div class="card-body p-0">
-              <div class="table-responsive">
+              <app-spinner *ngIf="!this.loaded"></app-spinner>
+              <div class="table-responsive" *ngIf="this.loaded">
                 <table class="table align-items-center table-flush">
                   <thead class="thead-light">
                   <tr>
@@ -43,9 +44,27 @@
                 </table>
               </div>
               <div class="card-footer text-right">
-                <button type="button" class="btn btn-success">Get invitation link</button>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                        </div>
+                        <input class="form-control" placeholder="E-mail address" type="text" name="email" [(ngModel)]="email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                   <button type="button" class="btn btn-success" (click)="generateMemberLink()">Get invitation link</button>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <div class="alert alert-primary m-10 invitation-link" role="alert" *ngIf="!loading && link">
+            <strong>Generated invitation link:</strong>
+            <div class="link">{{ link }}</div>
           </div>
         </div>
       </div>

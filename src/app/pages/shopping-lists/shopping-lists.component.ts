@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../core/services';
+import {ShoppingListsService} from '../../core/services';
 import {ShoppingList} from '../../core/models';
 import {ActivatedRoute} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -11,9 +11,10 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class ShoppingListsComponent implements OnInit {
 
-    public shoppingLists: ShoppingList[];
+    private shoppingLists: ShoppingList[];
+    private loaded = false;
 
-    constructor(private groupService: GroupService, private jwtHelper: JwtHelperService) {
+    constructor(private shoppingListsService: ShoppingListsService, private jwtHelper: JwtHelperService) {
     }
 
     ngOnInit() {
@@ -21,8 +22,9 @@ export class ShoppingListsComponent implements OnInit {
     }
 
     private loadData() {
-        this.groupService.getCurrentGroupShoppingLists().then((data: any) => {
+        this.shoppingListsService.getShoppingLists().then((data: any) => {
             this.shoppingLists = data.shoppingLists;
+            this.loaded = true;
         });
     }
 
@@ -45,11 +47,12 @@ export class ShoppingListsComponent implements OnInit {
     private getLoggedDebtor(shoppingList: ShoppingList) {
         return shoppingList.debtors.find(debtor => {
             return this.isLoggedUser(debtor.user);
-        })
+        });
     }
 
     private changePaidStatus(shoppingListId: string) {
-        this.groupService.setCurrentGroupShoppingListAsPaid(shoppingListId).then((data: any) => {
+        this.loaded = false;
+        this.shoppingListsService.setShoppingListAsPaid(shoppingListId).then((data: any) => {
             this.loadData();
         });
     }

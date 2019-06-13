@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../core/services';
+import {MembersService} from '../../core/services';
 import {User} from '../../core/models';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-user',
@@ -10,15 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserComponent implements OnInit {
 
-    public user: User;
+    private user: User;
+    private loaded = false;
 
-    constructor(private groupService: GroupService, private route: ActivatedRoute) {
+    constructor(private membersService: MembersService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.route.params.subscribe( params => {
-            this.groupService.getCurrentGroupMember(params['id']).then((data: any) => {
+        this.route.params.subscribe(params => {
+            this.membersService.getMember(params['id']).then((data: any) => {
                 this.user = data.member;
+                this.loaded = true;
             });
         });
     }

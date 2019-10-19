@@ -6,18 +6,11 @@ import {GroupService} from '../../core/services';
     templateUrl: './new-apartment.component.html',
     styleUrls: ['./new-apartment.component.scss']
 })
-export class NewApartmentComponent implements OnInit {
+export class NewApartmentComponent {
 
     private name: String;
 
-    constructor(private groupsService: GroupService) {
-    }
-
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
+    constructor(private groupsService: GroupService) {}
 
     addApartment() {
         this.groupsService.newGroup(this.name);
